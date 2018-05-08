@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.zhyx.common.base.dao.BaseDao">
+    <insert id="insert" parameterType="java.util.HashMap">
+        INSERT INTO ${TABLE_NAME}(
+        <foreach collection="COLUMNS" item="item" index="index" separator=",">
+            ${item}
+        </foreach>
+        )VALUES (
+        <foreach collection="VALUES" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </insert>
+    <update id="update" parameterType="java.util.HashMap">
+        UPDATE ${TABLE_NAME}
+        <trim prefix="set" prefixOverrides=",">
+            <foreach collection="COLUMNS" item="key" index="index">
+                <foreach collection="VALUES" item="val" index="index1">
+                    <if test="index==index1">
+                        ,${key}=#{val}
+                    </if>
+                </foreach>
+            </foreach>
+        </trim>
+        WHERE
+        ${_CONDITIONS}
+    </update>
+    <delete id="delete" parameterType="java.util.HashMap">
+        DELETE FROM ${TABLE_NAME}
+        WHERE ${_CONDITIONS}
+    </delete>
+    <select id="query" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+        <trim prefixOverrides=",">
+            <foreach collection="_QUERY_FILED" item="classFiled" index="dbFiled">
+                        ,${dbFiled} AS ${classFiled}
+            </foreach>
+        </trim>
+        FROM ${TABLE_NAME} t
+        WHERE 1=1 AND
+        ${_CONDITIONS}
+    </select>
+</mapper>
