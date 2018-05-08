@@ -33,7 +33,7 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Aacs接口文档")
+                .title("Application接口文档")
                 .description("212411327@qq.com")
                 .contact("zhyx")
                 .version("1.0")
