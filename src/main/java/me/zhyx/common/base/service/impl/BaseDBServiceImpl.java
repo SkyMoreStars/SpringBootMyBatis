@@ -123,12 +123,12 @@ public class BaseDBServiceImpl implements BaseDBService {
                 //获取列名和值
                 if (null != method.getAnnotation(Column.class)) {
                     k.add(method.getAnnotation(Column.class).value());
-                    v.add(method.invoke(o, null));
+                    v.add(method.invoke(o));
                 }
                 //获取主键
                 if (null != method.getAnnotation(Id.class)) {
                     res.put("KEY_ID", method.getAnnotation(Id.class).value());
-                    res.put("KEY_VALUE", method.invoke(o, null));
+                    res.put("KEY_VALUE", method.invoke(o));
                 }
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Error Input Object! Error Invoke Get Method.", e);
