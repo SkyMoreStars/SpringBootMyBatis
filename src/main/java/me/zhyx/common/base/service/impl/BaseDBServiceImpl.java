@@ -5,6 +5,7 @@ import me.zhyx.common.annotation.Id;
 import me.zhyx.common.annotation.Table;
 import me.zhyx.common.base.dao.BaseDao;
 import me.zhyx.common.base.entity.Condition;
+import me.zhyx.common.base.entity.PageBean;
 import me.zhyx.common.base.enums.ConditionEnum;
 import me.zhyx.common.base.service.BaseDBService;
 import org.slf4j.Logger;
@@ -52,8 +53,8 @@ public class BaseDBServiceImpl implements BaseDBService {
     }
 
     @Override
-    public List<Map<String, Object>> query(Object o) {
-        Map<String, Object> map = parsingParams(o);
+    public List<Map<String, Object>> query() throws IllegalAccessException, InstantiationException {
+        Map<String, Object> map = parsingParams(c.newInstance());
         logger.info(new StringBuffer("Function Query.Transformed Params:").append(map).toString());
         if(map.get("_QUERY_FILED")==null){
             this.queryFiled(getFields());
@@ -156,6 +157,15 @@ public class BaseDBServiceImpl implements BaseDBService {
         return this;
     }
 
+    @Override
+    public BaseDBService queryPagePlugin(PageBean pageBean) {
+//        if (null == c) {
+//            throw new RuntimeException("Please set the operation object first");
+//        }
+//        this.conditions=this.conditions+"limit ("+(pageBean.getCurrPage()-1)* pageBean.getPageSize()+","+ pageBean.getCurrPage()* pageBean.getPageSize()+")";
+        return this;
+    }
+
     private Map<String, Object> checkFiled(String[] fileds) {
         Map<String, Object> res = new HashMap<>();
         Method[] methods = this.c.getMethods();
@@ -170,7 +180,7 @@ public class BaseDBServiceImpl implements BaseDBService {
         return res;
     }
 
-    private String getColumnName(Method method) {
+    private synchronized String getColumnName(Method method) {
         String columnName = null;
         try {
             columnName = method.getAnnotation(Column.class).value();

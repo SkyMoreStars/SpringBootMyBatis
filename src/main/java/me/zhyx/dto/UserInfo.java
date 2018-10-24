@@ -10,15 +10,15 @@ import me.zhyx.common.base.entity.BaseEntity;
  * Date:2018/5/7
  * Time:11:38
  */
-@Table(value = "USER_INFO")
+@Table(value = "student")
 public class UserInfo extends BaseEntity {
     private long id;
-    private String userCode;
-    private String userName;
-    private String userPwd;
-    private String remark;
+    private String name;
+    private String age;
+    private String sex;
+    private String grade;
 
-    @Id(value = "ID")
+    @Id(value = "id")
     public long getId() {
         return id;
     }
@@ -27,39 +27,39 @@ public class UserInfo extends BaseEntity {
         this.id = id;
     }
 
-    @Column(value = "USER_CODE")
-    public String getUserCode() {
-        return userCode;
+    @Column(value = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Column(value = "USER_NAME")
-    public String getUserName() {
-        return userName;
+    @Column(value = "age")
+    public String getAge() {
+        return age;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    @Column(value = "USER_PWD")
-    public String getUserPwd() {
-        return userPwd;
+    @Column(value = "sex")
+    public String getSex() {
+        return sex;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    @Column(value = "REMARK")
-    public String getRemark() {
-        return remark;
+    @Column("grade")
+    public String getGrade() {
+        return grade;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }

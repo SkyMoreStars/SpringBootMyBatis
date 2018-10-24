@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public enum ConditionEnum {
     EQ("="),
-    NEQ("!="),
+    NEQ("<>"),
     IN("in(%s)"),
     BETWEEEN("BETWEEN %s AND %s"),
     LT("&lt"),
