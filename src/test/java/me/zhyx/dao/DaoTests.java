@@ -1,7 +1,6 @@
 package me.zhyx.dao;
 
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageHelper;
 import me.zhyx.ApplicationTests;
 import me.zhyx.common.base.entity.Condition;
 import me.zhyx.common.base.entity.PageBean;
@@ -12,9 +11,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Author: zhyx
@@ -47,14 +43,9 @@ public class DaoTests extends ApplicationTests {
     }
     @Test
     public void testSelect() throws InstantiationException, IllegalAccessException {
-        UserInfo userInfo = new UserInfo();
-        PageHelper.startPage(1,50);
-        List<Map<String, Object>> userList = baseDBService.operaClazz(UserInfo.class).conditions(new Condition("name", ConditionEnum.LIKE, "张")).query();
-        PageBean<Map<String, Object>> bean=new PageBean<>();
-        bean.setCurrentPage(1);
-        bean.setTotalNum(userList.size());
-        bean.setPageSize(4);
-        bean.setItems(userList);
-        logger.info("Result is {}，size is {}", JSON.toJSONString(bean.getItems()),userList.size());
+
+        PageBean pageBean = baseDBService.operaClazz(UserInfo.class).conditions(new Condition("name", ConditionEnum.LIKE, "张")).queryByPage(1,2);
+
+        logger.info("Result is {}，size is {}", JSON.toJSONString(pageBean.getItems()),pageBean.getTotalNum());
     }
 }

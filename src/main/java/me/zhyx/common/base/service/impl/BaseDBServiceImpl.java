@@ -1,5 +1,6 @@
 package me.zhyx.common.base.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import me.zhyx.common.annotation.Column;
 import me.zhyx.common.annotation.Id;
 import me.zhyx.common.annotation.Table;
@@ -158,12 +159,18 @@ public class BaseDBServiceImpl implements BaseDBService {
     }
 
     @Override
-    public BaseDBService queryPagePlugin(PageBean pageBean) {
-//        if (null == c) {
-//            throw new RuntimeException("Please set the operation object first");
-//        }
-//        this.conditions=this.conditions+"limit ("+(pageBean.getCurrPage()-1)* pageBean.getPageSize()+","+ pageBean.getCurrPage()* pageBean.getPageSize()+")";
-        return this;
+    public PageBean queryByPage(Integer pageNum, Integer pageSize) throws InstantiationException, IllegalAccessException {
+        if(pageNum==null||pageSize==null){
+            throw new RuntimeException("Error Filed! pageNum and pageSize values is not set");
+        }
+        PageHelper.startPage(pageNum,pageSize);
+        List<Map<String, Object>> resultList = this.query();
+        PageBean<Map<String, Object>> bean=new PageBean<>();
+        bean.setCurrentPage(pageNum);
+        bean.setTotalNum(resultList.size());
+        bean.setPageSize(pageSize);
+        bean.setItems(resultList);
+        return bean;
     }
 
     private Map<String, Object> checkFiled(String[] fileds) {

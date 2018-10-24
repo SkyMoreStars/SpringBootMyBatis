@@ -26,5 +26,5 @@ public interface BaseDBService {
 
     BaseDBService operaClazz(Class c);
 
-    BaseDBService queryPagePlugin(PageBean pageBean);
+    PageBean queryByPage(Integer pageNum, Integer pageSize) throws InstantiationException, IllegalAccessException;
 }
