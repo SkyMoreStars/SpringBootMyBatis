@@ -5,10 +5,12 @@
 <mapper namespace="me.zhyx.common.base.dao.BaseDao">
     <insert id="insert" parameterType="java.util.HashMap">
         INSERT INTO ${TABLE_NAME}(
+        ${KEY_ID},
         <foreach collection="COLUMNS" item="item" index="index" separator=",">
             ${item}
         </foreach>
         )VALUES (
+        #{KEY_VALUE},
         <foreach collection="VALUES" item="item" index="index" separator=",">
             #{item}
         </foreach>
@@ -16,7 +18,7 @@
     </insert>
     <update id="update" parameterType="java.util.HashMap">
         UPDATE ${TABLE_NAME}
-        <trim prefix="set" prefixOverrides=",">
+        <trim prefix="set" prefixOverrides="," suffixOverrides=",">
             <foreach collection="COLUMNS" item="key" index="index">
                 <foreach collection="VALUES" item="val" index="index1">
                     <if test="index==index1">

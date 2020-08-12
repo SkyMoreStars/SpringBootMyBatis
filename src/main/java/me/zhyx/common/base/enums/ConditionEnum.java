@@ -8,6 +8,7 @@ import java.util.Map;
  * Date:2018/5/7
  * Time:21:31
  */
+@SuppressWarnings("ALL")
 public enum ConditionEnum {
     EQ("="),
     NEQ("<>"),

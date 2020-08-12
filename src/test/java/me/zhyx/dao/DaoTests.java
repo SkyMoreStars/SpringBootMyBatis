@@ -1,6 +1,6 @@
 package me.zhyx.dao;
 
-import com.alibaba.fastjson.JSON;
+//import com.alibaba.fastjson.JSON;
 import me.zhyx.ApplicationTests;
 import me.zhyx.common.base.entity.Condition;
 import me.zhyx.common.base.entity.PageBean;
@@ -26,8 +26,20 @@ public class DaoTests extends ApplicationTests {
     public void testInsert() {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(2);
+        userInfo.setAge("1");
+        userInfo.setGrade("1");
+        userInfo.setName("ss");
+        userInfo.setSex("1");
+
+        UserInfo userInfo1 = new UserInfo();
+        userInfo.setId(3);
+        userInfo.setAge("1");
+        userInfo.setGrade("1");
+        userInfo.setName("ss");
+        userInfo.setSex("1");
 
         baseDBService.operaClazz(UserInfo.class).insert(userInfo);
+        baseDBService.operaClazz(UserInfo.class).insert(userInfo1);
     }
 
     @Test
@@ -46,6 +58,6 @@ public class DaoTests extends ApplicationTests {
 
         PageBean pageBean = baseDBService.operaClazz(UserInfo.class).conditions(new Condition("name", ConditionEnum.LIKE, "张")).queryByPage(1,2);
 
-        logger.info("Result is {}，size is {}", JSON.toJSONString(pageBean.getItems()),pageBean.getTotalNum());
+//        logger.info("Result is {}，size is {}", JSON.toJSONString(pageBean.getItems()),pageBean.getTotalNum());
     }
 }
